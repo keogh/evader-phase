@@ -1,0 +1,19 @@
+{
+  "name": "evader2",
+  "version": "0.0.0",
+  "authors": [
+    "Isaac Zepeda <keogh24@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "phaser": "~2.3.0"
+  }
+}
