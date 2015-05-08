@@ -15,9 +15,7 @@ var player,
   enemy;
 
 function preload() {
-  game.load.image('sky', 'assets/sky.png');
   game.load.image('enemy', 'assets/enemy.png');
-  game.load.image('star', 'assets/star.png');
   game.load.image('ship', 'assets/ship.png');
 }
 
