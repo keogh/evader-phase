@@ -1,6 +1,6 @@
 # Evader Phase
 
-This is a prototype for the NS Game Devs group.
+This is a prototype for the NS Game Devs group made with [Phaser](https://phaser.io/).
 
 Basically you only need to evade the enemies, when an enemy collides with your ship the game ends, so you need to refresh the browser. 
 
