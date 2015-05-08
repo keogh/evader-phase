@@ -58,6 +58,10 @@ function update() {
   if (lastEnemy.body.y > lastEnemy.body.height * 1.5) {
     createEnemies();
   }
+
+  game.physics.arcade.overlap(player, enemyGroup, function () {
+    game.paused = true;
+  });
 }
 
 function createEnemies() {
