@@ -47,6 +47,13 @@ function update() {
     player.body.x += player.width;
   }
 
+  var enemies = enemyGroup.children;
+  for (var i = 0; i < enemies.length; i++) {
+    if (enemies[i].body.y > game.height) {
+      enemyGroup.remove(enemies[i], true, true);
+    }
+  }
+
   var lastEnemy = enemyGroup.children[enemyGroup.children.length-1];
   if (lastEnemy.body.y > lastEnemy.body.height * 1.5) {
     createEnemies();
@@ -55,7 +62,6 @@ function update() {
 
 function createEnemies() {
   var line = map[getRandom(0, map.length-1)];
-  console.log(line);
   for (var i = 0; i < line.length; i++) {
     if (line[i] === 0) {
       continue;
