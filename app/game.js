@@ -1,4 +1,4 @@
-var game = new Phaser.Game(350, 500, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(350, 650, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 var map = [
   [0,0,1],
@@ -35,12 +35,22 @@ function create() {
 
   cursors = game.input.keyboard.createCursorKeys();
 
+  // game.input.keyboard.addCallbacks(this, function () {
+  //   console.log(arguments);
+  // });
+
   createEnemies();
 }
 
 
 function update() {
+  var turbo = 1;
   player.body.velocity.x = 0;
+
+  if (game.input.keyboard.isDown(Phaser.Keyboard.T)) {
+    turbo = 4;
+  }
+
   if (cursors.left.justDown && player.body.x - player.width > 0) {
     player.body.x -= player.width;
   } else if (cursors.right.justDown && player.body.x + player.width * 2 < game.width) {
@@ -49,13 +59,15 @@ function update() {
 
   var enemies = enemyGroup.children;
   for (var i = 0; i < enemies.length; i++) {
+    enemies[i].body.velocity.y = 100 * turbo;
+
     if (enemies[i].body.y > game.height) {
       enemyGroup.remove(enemies[i], true, true);
     }
   }
 
   var lastEnemy = enemyGroup.children[enemyGroup.children.length-1];
-  if (lastEnemy.body.y > lastEnemy.body.height * 1.5) {
+  if (lastEnemy.body.y > lastEnemy.body.height * 2.5) {
     createEnemies();
   }
 
