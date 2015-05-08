@@ -1,11 +1,22 @@
 var game = new Phaser.Game(350, 500, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
+var map = [
+  [0,0,1],
+  [0,1,0],
+  [0,1,1],
+  [1,0,0],
+  [1,0,1],
+  [1,1,0]
+];
+
 var player,
-  cursors;
+  cursors,
+  enemyGroup,
+  enemy;
 
 function preload() {
   game.load.image('sky', 'assets/sky.png');
-  game.load.image('ground', 'assets/platform.png');
+  game.load.image('enemy', 'assets/enemy.png');
   game.load.image('star', 'assets/star.png');
   game.load.image('ship', 'assets/ship.png');
 }
@@ -16,9 +27,15 @@ function create() {
   player = game.add.sprite(0, 0, 'ship');
   player.x = game.width/2 - player.width/2;
   player.y = game.height - player.height - 5;
+  
+  enemyGroup = game.add.group();
+  enemyGroup.enableBody = true;
+
   game.physics.arcade.enable(player);
 
   cursors = game.input.keyboard.createCursorKeys();
+
+  createEnemies();
 }
 
 
@@ -29,4 +46,32 @@ function update() {
   } else if (cursors.right.justDown && player.body.x + player.width * 2 < game.width) {
     player.body.x += player.width;
   }
+}
+
+function createEnemies() {
+  var line = map[getRandom(0, map.length-1)];
+  console.log(line);
+  for (var i = 0; i < line.length; i++) {
+    if (line[i] === 0) {
+      continue;
+    }
+
+    var x = generateXForEnemy(i);
+    var enemy = enemyGroup.create(x, -100, 'enemy');
+    enemy.body.velocity.y = 100;
+  }
+}
+
+function generateXForEnemy(index) {
+  if (index === 0) {
+    return 10;
+  } else if (index === 1) {
+    return game.width / 2 - 49;
+  } else {
+    return game.width - 100;
+  }
+}
+
+function getRandom(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
