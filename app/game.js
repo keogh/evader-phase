@@ -46,6 +46,11 @@ function update() {
   } else if (cursors.right.justDown && player.body.x + player.width * 2 < game.width) {
     player.body.x += player.width;
   }
+
+  var lastEnemy = enemyGroup.children[enemyGroup.children.length-1];
+  if (lastEnemy.body.y > lastEnemy.body.height * 1.5) {
+    createEnemies();
+  }
 }
 
 function createEnemies() {
