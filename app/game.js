@@ -24,10 +24,9 @@ function create() {
 
 function update() {
   player.body.velocity.x = 0;
-  if (cursors.left.justDown) {
-    console.log('a');
+  if (cursors.left.justDown && player.body.x - player.width > 0) {
     player.body.x -= player.width;
-  } else if (cursors.right.justDown) {
+  } else if (cursors.right.justDown && player.body.x + player.width * 2 < game.width) {
     player.body.x += player.width;
   }
 }
