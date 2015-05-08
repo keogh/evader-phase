@@ -1,6 +1,7 @@
 var game = new Phaser.Game(350, 500, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
-var player;
+var player,
+  cursors;
 
 function preload() {
   game.load.image('sky', 'assets/sky.png');
@@ -10,10 +11,23 @@ function preload() {
 }
 
 function create() {
+  game.physics.startSystem(Phaser.Physics.ARCADE);
+
   player = game.add.sprite(0, 0, 'ship');
   player.x = game.width/2 - player.width/2;
   player.y = game.height - player.height - 5;
+  game.physics.arcade.enable(player);
+
+  cursors = game.input.keyboard.createCursorKeys();
 }
 
+
 function update() {
+  player.body.velocity.x = 0;
+  if (cursors.left.justDown) {
+    console.log('a');
+    player.body.x -= player.width;
+  } else if (cursors.right.justDown) {
+    player.body.x += player.width;
+  }
 }
