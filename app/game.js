@@ -1,5 +1,7 @@
 var game = new Phaser.Game(350, 650, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
+var score = 0, enemyPoints = 100;
+
 var map = [
   [0,0,1],
   [0,1,0],
@@ -36,7 +38,17 @@ function create() {
   // game.input.keyboard.addCallbacks(this, function () {
   //   console.log(arguments);
   // });
-
+this.scoreText = this.add.text(
+    this.world.width - this.world.width/4,
+    5,
+    "",
+    {
+        size: "24px",
+        fill: "#fff",
+        align: "right"
+    }
+);
+this.scoreText.setText(0);
   createEnemies();
 }
 
@@ -61,6 +73,8 @@ function update() {
 
     if (enemies[i].body.y > game.height) {
       enemyGroup.remove(enemies[i], true, true);
+      score += enemyPoints;
+      this.scoreText.setText(score);
     }
   }
 
