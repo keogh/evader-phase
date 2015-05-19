@@ -36,7 +36,19 @@ function create() {
   // game.input.keyboard.addCallbacks(this, function () {
   //   console.log(arguments);
   // });
-
+this.score = 0; 
+this.enemyPoints = 100;
+this.scoreText = this.add.text(
+    this.world.width - this.world.width/4,
+    5,
+    "",
+    {
+        size: "24px",
+        fill: "#fff",
+        align: "right"
+    }
+);
+this.scoreText.setText(0);
   createEnemies();
 }
 
@@ -61,6 +73,8 @@ function update() {
 
     if (enemies[i].body.y > game.height) {
       enemyGroup.remove(enemies[i], true, true);
+      this.score += this.enemyPoints;
+      this.scoreText.setText(this.score);
     }
   }
 
